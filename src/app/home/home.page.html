@@ -6,20 +6,23 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+
+  <ion-item>
+    <ion-input [name]="searchTerm" placeholder="Enter movie title..." [(ngModel)]="searchTerm"></ion-input>
+    <ion-button slot="end" (click)="searchMovies()">Search</ion-button>
+  </ion-item>
   
   <ion-list>
-   
     <ion-item *ngFor="let movie of movies">
-     
       <ion-thumbnail slot="start">
         <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" />
       </ion-thumbnail>
-      
-      
+
       <ion-label>
         <h2>{{ movie.title }}</h2>
         <p>{{ movie.overview }}</p>
       </ion-label>
     </ion-item>
   </ion-list>
+
 </ion-content>

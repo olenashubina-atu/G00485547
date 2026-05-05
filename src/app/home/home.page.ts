@@ -11,7 +11,7 @@ import { HttpOptions } from '@capacitor/core';
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonLabel, FormsModule, IonList, IonThumbnail, CommonModule],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonLabel, FormsModule, IonList, IonThumbnail, CommonModule, IonButton, IonInput],
 })
 export class HomePage implements OnInit {
   studentNumber: string = 'G00485547';
@@ -20,6 +20,7 @@ export class HomePage implements OnInit {
   apiKey: string = '70b2a2787a3fb6f37ef3c1c565cec19d';
   baseUrl: string = 'https://api.themoviedb.org/3';
   testKeyword: string = '';
+  searchTerm: string = '';
 
   constructor(private router: Router, private mds: MyData, private myHttp: MyHttp) {}
   
@@ -36,6 +37,19 @@ export class HomePage implements OnInit {
     
     console.log("Загруженные фильмы:", this.movies);
   
+  }
+
+  
+  async searchMovies() {
+    if (this.searchTerm.trim() === '') {
+      this.loadTrending();
+      return;
+    }
+    let options: HttpOptions = {
+      url: this.baseUrl + '/search/movie?api_key=' + this.apiKey + '&query=' + this.searchTerm
+    }; 
+    const result = await this.myHttp.get(options);
+    this.movies = result.data.results; 
   }
 
     
