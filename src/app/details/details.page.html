@@ -3,13 +3,29 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
-    <ion-title>Storage Test</ion-title>
+    <ion-title>{{ movie?.title || 'Loading...' }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <h2>DATA FROM STORAGE</h2>
-  <p style="font-size: 24px; color: green; font-weight: bold;">
-    {{ savedWord }}
-  </p>
+  <ion-card *ngIf="movie">
+    <img *ngIf="movie.poster_path" src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" style="width: 100%;" />
+    
+    <ion-card-header>
+      <ion-card-title>{{ movie.title }}</ion-card-title>
+      <p><em *ngIf="movie.tagline">{{ movie.tagline }}</em></p> 
+    </ion-card-header>
+
+    <ion-card-content>
+      <h3>⭐ Rating: {{ movie.vote_average | number:'1.1-1' }} / 10</h3>
+      <p><strong>Release Date:</strong> {{ movie.release_date }}</p>
+      <br>
+      <p style="font-size: 16px; line-height: 1.5;">{{ movie.overview }}</p>
+    </ion-card-content>
+    
+  </ion-card>
+  <div *ngIf="!movie" style="text-align: center; margin-top: 50px;">
+    <p>Loading movie details...</p>
+  </div>
+
 </ion-content>

@@ -7,7 +7,7 @@
 
 <ion-content [fullscreen]="true">
 
-  <ion-item>
+  <ion-item lines="none" style="max-width: 400px; margin: 0 auto;">
     <ion-input [name]="searchTerm" placeholder="Enter movie title..." [(ngModel)]="searchTerm"></ion-input>
     <ion-button slot="end" (click)="searchMovies()">Search</ion-button>
   </ion-item>

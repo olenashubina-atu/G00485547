@@ -16,9 +16,6 @@ import { HttpOptions } from '@capacitor/core';
 export class HomePage implements OnInit {
   studentNumber: string = 'G00485547';
   movies: any[] = []; 
-  
-  apiKey: string = '70b2a2787a3fb6f37ef3c1c565cec19d';
-  baseUrl: string = 'https://api.themoviedb.org/3';
   testKeyword: string = '';
   searchTerm: string = '';
 
@@ -30,13 +27,10 @@ export class HomePage implements OnInit {
 
   async loadTrending() {
     let options: HttpOptions = {
-      url: this.baseUrl + '/trending/movie/day?api_key=' + this.apiKey
+      url: this.myHttp.baseUrl + '/trending/movie/day?api_key=' + this.myHttp.apiKey
     };
     const result = await this.myHttp.get(options);
     this.movies = result.data.results;
-    
-    console.log("Загруженные фильмы:", this.movies);
-  
   }
 
   
@@ -46,7 +40,7 @@ export class HomePage implements OnInit {
       return;
     }
     let options: HttpOptions = {
-      url: this.baseUrl + '/search/movie?api_key=' + this.apiKey + '&query=' + this.searchTerm
+      url: this.myHttp.baseUrl + '/search/movie?api_key=' + this.myHttp.apiKey + '&query=' + this.searchTerm
     }; 
     const result = await this.myHttp.get(options);
     this.movies = result.data.results; 

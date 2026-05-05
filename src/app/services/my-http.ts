@@ -8,9 +8,10 @@ import { CapacitorHttp, HttpOptions } from '@capacitor/core';
 
 
 export class MyHttp {
+  apiKey: string = '70b2a2787a3fb6f37ef3c1c565cec19d'; 
+  baseUrl: string = 'https://api.themoviedb.org/3';
 
   public async get(options: HttpOptions) {
-    console.log("URL:", options.url);
     return await CapacitorHttp.get(options);
   }
 }
