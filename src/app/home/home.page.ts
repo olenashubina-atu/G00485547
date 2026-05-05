@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonLabel, IonButton, IonInput, IonList, IonThumbnail } from '@ionic/angular/standalone';
 import { MyData } from '../services/my-data';
-import { Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MyHttp } from '../services/my-http';
@@ -22,7 +22,7 @@ export class HomePage implements OnInit {
   testKeyword: string = '';
   searchTerm: string = '';
 
-  constructor(private router: Router, private mds: MyData, private myHttp: MyHttp) {}
+  constructor(private navCtrl: NavController, private mds: MyData, private myHttp: MyHttp) {}
   
   ngOnInit() {
     this.loadTrending();
@@ -54,8 +54,8 @@ export class HomePage implements OnInit {
 
     
     
-  async testStorage() {
-    await this.mds.set('test_kw', this.testKeyword); 
-    this.router.navigate(['/details']);
+  async openDetails(movie: any) {
+    await this.mds.set('movie_id', movie.id); 
+    this.navCtrl.navigateForward(['/details']);
   }
 }
