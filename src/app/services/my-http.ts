@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { CapacitorHttp, HttpOptions } from '@capacitor/core';
 
 
 @Injectable({
@@ -7,5 +8,9 @@ import { Injectable } from '@angular/core';
 
 
 export class MyHttp {
- 
+
+  public async get(options: HttpOptions) {
+    console.log("URL:", options.url);
+    return await CapacitorHttp.get(options);
+  }
 }
