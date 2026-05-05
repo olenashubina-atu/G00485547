@@ -1,17 +1,25 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    
+    <ion-title>{{ studentNumber }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <h2>Storage Testing</h2>
-  <ion-item>
-    <ion-label>Enter anythig</ion-label>
-    <ion-input [(ngModel)]="testKeyword"></ion-input>
-  </ion-item>
-
-  <ion-button (click)="testStorage()">Save</ion-button>
+  
+  <ion-list>
+   
+    <ion-item *ngFor="let movie of movies">
+     
+      <ion-thumbnail slot="start">
+        <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" />
+      </ion-thumbnail>
+      
+      
+      <ion-label>
+        <h2>{{ movie.title }}</h2>
+        <p>{{ movie.overview }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>
