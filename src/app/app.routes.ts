@@ -11,10 +11,6 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'movie-details',
-    loadComponent: () => import('./movie-details/movie-details.page').then( m => m.MovieDetailsPage)
-  },
-  {
     path: 'favourites',
     loadComponent: () => import('./favourites/favourites.page').then( m => m.FavouritesPage)
   },

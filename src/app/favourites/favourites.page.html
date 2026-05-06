@@ -11,13 +11,16 @@
   
   <ion-list *ngIf="favouriteMovies.length > 0">
     <ion-item *ngFor="let movie of favouriteMovies">
-      <ion-thumbnail slot="start">
+      <ion-thumbnail slot="start" (click)="goToDetails(movie.id)">
         <img *ngIf="movie.poster_path" src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" />
       </ion-thumbnail>
-      <ion-label class="ion-text-wrap">
+      <ion-label class="ion-text-wrap" (click)="goToDetails(movie.id)">
         <h2>{{ movie.title }}</h2>
         <p>⭐ {{ movie.vote_average | number:'1.1-1' }}</p>
       </ion-label>
+      <ion-button slot="end" fill="clear" color="danger" (click)="removeFromFavourites(movie.id)">
+        <ion-icon slot="icon-only" name="trash"></ion-icon>
+      </ion-button>
     </ion-item>
   </ion-list>
 
