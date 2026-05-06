@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     
-    <ion-title> Movie App - {{ studentNumber }}</ion-title>
+    <ion-title>{{ studentNumber }}</ion-title>
     <ion-buttons slot="end">
       <ion-button routerLink="/favourites">
         <ion-icon slot="icon-only" name="heart" color="danger"></ion-icon>
@@ -12,11 +12,19 @@
 
 <ion-content [fullscreen]="true">
 
-  <ion-item lines="none" style="max-width: 400px; margin: 0 auto;">
-    <ion-input [name]="searchTerm" placeholder="Enter movie title..." [(ngModel)]="searchTerm"></ion-input>
-    <ion-button slot="end" (click)="searchMovies()">Search</ion-button>
-  </ion-item>
+  <ion-content>
+    <ion-item lines="inset">
+      <ion-label position="stacked">Search</ion-label>
+      <ion-input name="searchTerm" placeholder="Movie Name" [(ngModel)]="searchTerm"></ion-input>
+    </ion-item>
+    
+    <ion-button expand="block" (click)="searchMovies()" class="ion-margin">
+      SEARCH
+    </ion-button>
   
+    <ion-text color="dark">
+      <h2 class="ion-padding-start">{{ displayTitle }}</h2>
+    </ion-text>
   <ion-list>
     <ion-item *ngFor="let movie of movies" button (click)="openDetails(movie)">
       <ion-thumbnail slot="start">

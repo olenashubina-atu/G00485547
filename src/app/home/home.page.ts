@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonLabel, IonButton, IonInput, IonList, IonThumbnail, IonButtons, IonIcon } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonLabel, IonButton, IonInput, IonList, IonThumbnail, IonButtons, IonIcon, IonText } from '@ionic/angular/standalone';
 import { MyData } from '../services/my-data';
 import { NavController } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
@@ -14,13 +14,15 @@ import { RouterLink } from '@angular/router';
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonLabel, FormsModule, IonList, IonThumbnail, CommonModule, IonButton, IonInput, IonButtons, IonIcon, RouterLink],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonLabel, FormsModule, IonList, IonThumbnail, CommonModule, IonButton, IonInput, IonButtons, IonIcon, RouterLink, IonText],
 })
 export class HomePage implements OnInit {
   studentNumber: string = 'G00485547';
   movies: any[] = []; 
   testKeyword: string = '';
   searchTerm: string = '';
+  displayTitle: string = "Today's Trending Movies";
+  
 
   constructor(private navCtrl: NavController, private mds: MyData, private myHttp: MyHttp) {
     addIcons({ heart });
@@ -41,9 +43,12 @@ export class HomePage implements OnInit {
   
   async searchMovies() {
     if (this.searchTerm.trim() === '') {
+      this.displayTitle = "Today's Trending Movies";
       this.loadTrending();
       return;
     }
+    this.displayTitle = this.searchTerm + ' Movies';
+    
     let options: HttpOptions = {
       url: this.myHttp.baseUrl + '/search/movie?api_key=' + this.myHttp.apiKey + '&query=' + this.searchTerm
     }; 

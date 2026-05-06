@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonBackButton } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonBackButton, IonLabel, IonThumbnail, IonList, IonItem, IonButtons } from '@ionic/angular/standalone';
 import { MyHttp } from '../services/my-http';
 import { MyData } from '../services/my-data';
 import { NavController } from '@ionic/angular/standalone';
@@ -12,7 +12,7 @@ import { NavController } from '@ionic/angular/standalone';
   selector: 'app-details',
   templateUrl: './details.page.html',
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonBackButton ]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonBackButton, IonLabel, IonThumbnail, IonList, IonItem, IonButtons ]
 })
 export class DetailsPage {
   person: any = null;
