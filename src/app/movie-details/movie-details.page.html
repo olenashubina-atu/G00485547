@@ -10,7 +10,38 @@
 <ion-content [fullscreen]="true">
   <ion-card *ngIf="movie">
     <img *ngIf="movie.poster_path" src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" style="width: 100%;" />
+    <ion-list-header>
+      <ion-label>Cast</ion-label>
+    </ion-list-header>
     
+    <ion-list>
+      <ion-item *ngFor="let person of visibleCast">
+        <ion-thumbnail slot="start">
+          <img *ngIf="person.profile_path" src="https://image.tmdb.org/t/p/w500{{ person.profile_path }}" />
+          <ion-label *ngIf="!person.profile_path">No image</ion-label>
+        </ion-thumbnail>
+        <ion-label>
+          <h2>{{ person.name }}</h2>
+          <p>{{ person.character }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+    
+    <ion-button *ngIf="cast.length > 5" fill="clear" (click)="showAllCast = !showAllCast">
+      {{ showAllCast ? 'Show Less' : 'Show More (' + (cast.length - 5) + ' more)' }}
+    </ion-button>
+    
+    <ion-list-header>
+      <ion-label>Crew</ion-label>
+    </ion-list-header>
+    
+    <ion-list>
+      <ion-item *ngFor="let member of crew">
+        <ion-label>
+          <h2>{{ member.name }}</h2>
+          <p>{{ member.job }}</p> </ion-label>
+      </ion-item>
+    </ion-list>
     <ion-card-header>
       <ion-card-title>{{ movie.title }}</ion-card-title>
       <p><em *ngIf="movie.tagline">{{ movie.tagline }}</em></p> 
