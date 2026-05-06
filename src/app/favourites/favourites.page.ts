@@ -28,7 +28,7 @@ export class FavouritesPage {
 
   async goToDetails(id: number) {
     await this.mds.set('movie_id', id); 
-    this.navCtrl.navigateForward(['/details']);
+    this.navCtrl.navigateForward(['/movie-details']);
   }
 
 

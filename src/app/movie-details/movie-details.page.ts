@@ -7,13 +7,12 @@ import { MyHttp } from '../services/my-http';
 import { HttpOptions } from '@capacitor/core';
 
 @Component({
-  selector: 'app-details',
-  templateUrl: './details.page.html',
-  styleUrls: ['./details.page.scss'],
+  selector: 'app-movie-details',
+  templateUrl: './movie-details.page.html',
   standalone: true,
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButtons, IonBackButton, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton]
 })
-export class DetailsPage {
+export class MovieDetailsPage {
   movie: any = null;
   
   constructor (private myHttp: MyHttp, private mds: MyData) { }

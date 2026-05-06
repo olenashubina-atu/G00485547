@@ -55,6 +55,6 @@ export class HomePage implements OnInit {
     
   async openDetails(movie: any) {
     await this.mds.set('movie_id', movie.id); 
-    this.navCtrl.navigateForward(['/details']);
+    this.navCtrl.navigateForward(['/movie-details']);
   }
 }
