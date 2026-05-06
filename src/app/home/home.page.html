@@ -1,7 +1,12 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     
-    <ion-title>{{ studentNumber }}</ion-title>
+    <ion-title> Movie App - {{ studentNumber }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/favourites">
+        <ion-icon slot="icon-only" name="heart" color="danger"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 

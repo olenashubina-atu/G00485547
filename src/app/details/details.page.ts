@@ -52,10 +52,10 @@ export class DetailsPage {
       
       if (isExisting === false) {
         favourites.push(this.movie);
-        await this.mds.set('favorites', favourites);
-        alert('Movie added to favorites!');
+        await this.mds.set('favourites', favourites);
+        alert('Movie added to favourites!');
       } else {
-        alert('This movie is already in your favorites!');
+        alert('This movie is already in your favourites!');
       }
       
     }
