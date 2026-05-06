@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, IonCard, IonCardHeader, IonCardTitle, IonCardContent } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton } from '@ionic/angular/standalone';
 import { MyData } from '../services/my-data';
 import { MyHttp } from '../services/my-http';
 import { HttpOptions } from '@capacitor/core';
@@ -11,7 +11,7 @@ import { HttpOptions } from '@capacitor/core';
   templateUrl: './details.page.html',
   styleUrls: ['./details.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButtons, IonBackButton, IonCard, IonCardHeader, IonCardTitle, IonCardContent]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButtons, IonBackButton, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton]
 })
 export class DetailsPage {
   movie: any = null;
@@ -33,6 +33,32 @@ export class DetailsPage {
     
     const result = await this.myHttp.get(options);
     this.movie = result.data; 
+  }
+
+  async addToFavourites() {
+    if (this.movie !== null) {
+      let favourites = await this.mds.get('favourites');
+      if (favourites === null) {
+        favourites = [];
+      }
+      let isExisting = false;
+      for (let i = 0; i < favourites.length; i++) {
+        let currentMovie = favourites[i];
+        if (currentMovie.id === this.movie.id) {
+          isExisting = true;
+          break; 
+        }
+      }
+      
+      if (isExisting === false) {
+        favourites.push(this.movie);
+        await this.mds.set('favorites', favourites);
+        alert('Movie added to favorites!');
+      } else {
+        alert('This movie is already in your favorites!');
+      }
+      
+    }
   }
 }
 

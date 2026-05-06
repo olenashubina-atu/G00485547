@@ -17,6 +17,9 @@
     </ion-card-header>
 
     <ion-card-content>
+      <ion-button expand="block" color="danger" (click)="addToFavourites()" style="margin-bottom: 15px;">
+        Add to Favourites ❤️
+      </ion-button>
       <h3>⭐ Rating: {{ movie.vote_average | number:'1.1-1' }} / 10</h3>
       <p><strong>Release Date:</strong> {{ movie.release_date }}</p>
       <br>
