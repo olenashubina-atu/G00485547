@@ -5,6 +5,7 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton,
 import { MyData } from '../services/my-data';
 import { MyHttp } from '../services/my-http';
 import { HttpOptions } from '@capacitor/core';
+import { NavController } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-movie-details',
@@ -19,7 +20,7 @@ export class MovieDetailsPage {
   crew: any[] = [];
   showAllCast: boolean = false;
   
-  constructor (private myHttp: MyHttp, private mds: MyData) { }
+  constructor (private myHttp: MyHttp, private mds: MyData, private navCtrl: NavController) { }
 
   async ionViewWillEnter() {
     const movieId = await this.mds.get('movie_id');
@@ -51,7 +52,14 @@ export class MovieDetailsPage {
     } else {
       return this.cast.slice(0, 5);
     }
-}
+  }
+
+  async openPersonDetails(id: number) {
+    await this.mds.set('person_id', id);
+    this.navCtrl.navigateForward(['/details']);
+  }
+
+
 
   async addToFavourites() {
     if (this.movie !== null) {
@@ -76,7 +84,7 @@ export class MovieDetailsPage {
       } else {
         favourites.splice(existingIndex, 1); 
         await this.mds.set('favourites', favourites);
-        this.isFavourite = false; // Кнопка меняется обратно
+        this.isFavourite = false; 
         alert('Movie removed from favourites!');
       }
     }

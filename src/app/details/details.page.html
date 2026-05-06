@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/movie-details"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ person?.name }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" *ngIf="person">
+  <ion-thumbnail style="width: 150px; height: 225px; margin: 0 auto;">
+    <img *ngIf="person.profile_path" src="https://image.tmdb.org/t/p/w500{{ person.profile_path }}" />
+    <ion-label *ngIf="!person.profile_path">No image</ion-label>
+  </ion-thumbnail>
+
+  <div class="ion-text-center">
+    <h1>{{ person.name }}</h1>
+    
+    <p *ngIf="person.birthday"><b>Born:</b> {{ person.birthday }}</p>
+    <p *ngIf="person.deathday"><b>Died:</b> {{ person.deathday }}</p>
+    <p *ngIf="person.also_known_as?.length > 0">
+      <b>Also Known As:</b> {{ person.also_known_as[0] }}
+    </p>
+  </div>
+
+  <h3>Description</h3>
+  <p class="ion-text-justify">{{ person.biography }}</p>
+
+  <h3>Other Movies</h3>
+  <ion-list>
+    <ion-item *ngFor="let m of movies" (click)="goToMovie(m.id)" style="cursor: pointer;">
+      <ion-thumbnail slot="start">
+        <img *ngIf="m.poster_path" src="https://image.tmdb.org/t/p/w500{{ m.poster_path }}" />
+      </ion-thumbnail>
+      <ion-label>
+        <h2>{{ m.title }}</h2>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
