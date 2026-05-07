@@ -22,6 +22,7 @@ export class HomePage implements OnInit {
   testKeyword: string = '';
   searchTerm: string = '';
   displayTitle: string = "Today's Trending Movies";
+  isDarkMode: boolean = false;
   
 
   constructor(private navCtrl: NavController, private mds: MyData, private myHttp: MyHttp) {
@@ -55,6 +56,14 @@ export class HomePage implements OnInit {
     const result = await this.myHttp.get(options);
     this.movies = result.data.results; 
   }
+
+  sortMovies(type: string) {
+    if (type === 'rating') {
+      this.movies.sort((a, b) => b.vote_average - a.vote_average);
+    } else if (type === 'name') {
+      this.movies.sort((a, b) => a.title.localeCompare(b.title));
+    }
+  }
   
   async openDetails(movie: any) {
     await this.mds.set('movie_id', movie.id); 
@@ -73,6 +82,5 @@ export class HomePage implements OnInit {
       event.target.complete();
     }, 1000);
   }
-  
-  
+
 }
