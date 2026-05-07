@@ -5,9 +5,10 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton,
 import { MyData } from '../services/my-data';
 import { MyHttp } from '../services/my-http';
 import { HttpOptions } from '@capacitor/core';
-import { NavController } from '@ionic/angular/standalone';
+import { NavController, ActionSheetController } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { heart, heartOutline, home } from 'ionicons/icons';
+import { heart, heartOutline, home, shareSocial, copyOutline, close } from 'ionicons/icons';
+
 
 @Component({
   selector: 'app-movie-details',
@@ -28,8 +29,9 @@ export class MovieDetailsPage {
   showAllCast: boolean = false;
   showAllCrew: boolean = false;
   
-  constructor (private myHttp: MyHttp, private mds: MyData, private navCtrl: NavController) {
-    addIcons({ home, heart, heartOutline });
+  
+  constructor (private myHttp: MyHttp, private mds: MyData, private navCtrl: NavController, private actionSheetCtrl: ActionSheetController) {
+    addIcons({ home, heart, heartOutline, shareSocial, copyOutline, close });
   }
 
   async ionViewWillEnter() {
@@ -101,4 +103,30 @@ export class MovieDetailsPage {
       await this.mds.set('favourites', favourites);
     }
   }
+
+  async shareMovie() {
+    if (!this.movie) return;
+  
+    const actionSheet = await this.actionSheetCtrl.create({
+      header: 'Share "' + this.movie.title + '"',
+      buttons: [
+        {
+          text: 'Copy Link',
+          icon: 'copy-outline',
+          handler: () => {
+            navigator.clipboard.writeText(window.location.href);
+            alert('Link copied to clipboard!'); 
+          }
+        },
+        {
+          text: 'Cancel',
+          icon: 'close',
+          role: 'cancel'
+        }
+      ]
+    });
+  
+    await actionSheet.present();
+  }
+
 }
