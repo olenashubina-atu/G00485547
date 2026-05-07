@@ -34,7 +34,9 @@
         Remove From Favourites 💔
       </ion-button>
 
-      <h3>⭐ Rating: {{ movie.vote_average | number:'1.1-1' }} / 10</h3>
+      <p [style.color]="movie.vote_average >= 7 ? '#2dd36f' : (movie.vote_average >= 5 ? '#ffca22' : '#eb445a')">
+        ⭐ {{ movie.vote_average | number:'1.1-1' }}
+      </p>
       <p><strong>Release Date:</strong> {{ movie.release_date }}</p>
       <br>
       <p style="font-size: 16px; line-height: 1.5;">{{ movie.overview }}</p>
@@ -62,13 +64,17 @@
         <ion-label>Crew</ion-label>
       </ion-list-header>
       <ion-list>
-        <ion-item *ngFor="let member of crew">
+        <ion-item *ngFor="let member of visibleCrew">
           <ion-label>
             <h2>{{ member.name }}</h2>
             <p>{{ member.job }}</p>
           </ion-label>
         </ion-item>
       </ion-list>
+      
+      <ion-button *ngIf="crew.length > 5" fill="clear" (click)="showAllCrew = !showAllCrew">
+        {{ showAllCrew ? 'Show Less' : 'Show More' }}
+      </ion-button>
     </ion-card-content>
   </ion-card>
 </ion-content>

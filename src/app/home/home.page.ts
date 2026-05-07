@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonLabel, IonButton, IonInput, IonList, IonThumbnail, IonButtons, IonIcon, IonText } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonLabel, IonButton, IonInput, IonList, IonThumbnail, IonButtons, IonIcon, IonText, IonRefresherContent, IonRefresher } from '@ionic/angular/standalone';
 import { MyData } from '../services/my-data';
 import { NavController } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
@@ -14,7 +14,7 @@ import { RouterLink } from '@angular/router';
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonLabel, FormsModule, IonList, IonThumbnail, CommonModule, IonButton, IonInput, IonButtons, IonIcon, RouterLink, IonText],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonLabel, FormsModule, IonList, IonThumbnail, CommonModule, IonButton, IonInput, IonButtons, IonIcon, RouterLink, IonText, IonRefresherContent, IonRefresher],
 })
 export class HomePage implements OnInit {
   studentNumber: string = 'G00485547';
@@ -48,18 +48,31 @@ export class HomePage implements OnInit {
       return;
     }
     this.displayTitle = this.searchTerm + ' Movies';
-    
+
     let options: HttpOptions = {
       url: this.myHttp.baseUrl + '/search/movie?api_key=' + this.myHttp.apiKey + '&query=' + this.searchTerm
     }; 
     const result = await this.myHttp.get(options);
     this.movies = result.data.results; 
   }
-
-    
-    
+  
   async openDetails(movie: any) {
     await this.mds.set('movie_id', movie.id); 
     this.navCtrl.navigateForward(['/movie-details']);
   }
+  
+  async handleRefresh(event: any) {
+    
+    if (this.searchTerm.trim() !== '') {
+      await this.searchMovies();
+    } else {
+      await this.loadTrending();
+    }
+  
+    setTimeout(() => {
+      event.target.complete();
+    }, 1000);
+  }
+  
+  
 }

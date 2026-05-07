@@ -11,8 +11,9 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
-  <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
     <ion-item lines="inset">
       <ion-label position="stacked">Search</ion-label>
       <ion-input name="searchTerm" placeholder="Movie Name" [(ngModel)]="searchTerm"></ion-input>

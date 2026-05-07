@@ -26,6 +26,7 @@ export class MovieDetailsPage {
   cast: any[] = [];
   crew: any[] = [];
   showAllCast: boolean = false;
+  showAllCrew: boolean = false;
   
   constructor (private myHttp: MyHttp, private mds: MyData, private navCtrl: NavController) {
     addIcons({ home, heart, heartOutline });
@@ -72,6 +73,10 @@ export class MovieDetailsPage {
 
   get visibleCast() {
     return this.showAllCast ? this.cast : this.cast.slice(0, 5);
+  }
+
+  get visibleCrew() {
+    return this.showAllCrew ? this.crew : this.crew.slice(0, 5);
   }
 
   async openPersonDetails(id: number) {
