@@ -16,6 +16,7 @@
   <div class="ion-text-center">
     <h1>{{ person.name }}</h1>
     
+    <p *ngIf="person.place_of_birth"><b>Place of Birth:</b> {{ person.place_of_birth }}</p>
     <p *ngIf="person.birthday"><b>Born:</b> {{ person.birthday }}</p>
     <p *ngIf="person.deathday"><b>Died:</b> {{ person.deathday }}</p>
     <p *ngIf="person.also_known_as?.length > 0">
@@ -31,6 +32,7 @@
     <ion-item *ngFor="let m of movies" (click)="goToMovie(m.id)" style="cursor: pointer;">
       <ion-thumbnail slot="start">
         <img *ngIf="m.poster_path" src="https://image.tmdb.org/t/p/w500{{ m.poster_path }}" />
+        <ion-label *ngIf="!m.poster_path">No image</ion-label>
       </ion-thumbnail>
       <ion-label>
         <h2>{{ m.title }}</h2>
