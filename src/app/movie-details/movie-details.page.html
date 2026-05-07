@@ -68,7 +68,11 @@
         <ion-label>Crew</ion-label>
       </ion-list-header>
       <ion-list>
-        <ion-item *ngFor="let member of visibleCrew">
+        <ion-item *ngFor="let member of visibleCrew" (click)="openPersonDetails(member.id)" style="cursor: pointer;">
+          <ion-thumbnail slot="start">
+            <img *ngIf="member.profile_path" src="https://image.tmdb.org/t/p/w500{{ member.profile_path }}" />
+            <ion-label *ngIf="!member.profile_path">No image</ion-label>
+          </ion-thumbnail>
           <ion-label>
             <h2>{{ member.name }}</h2>
             <p>{{ member.job }}</p>
